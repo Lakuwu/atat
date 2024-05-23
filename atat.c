@@ -53,9 +53,16 @@ int main(int argc, char **argv) {
     char *input_file = argv[1];
     char *output_file = argv[2];
     
+    FILE *fp_out = fopen(output_file, "wb");
+    if(!fp_out) {
+        ERRORF("Could not open output file \"%s\"", output_file);
+        return EXIT_FAILURE;
+    }
+    
     size_t size = 0;
-    if(!file_size(input_file, &size)) {
-        ERROR("Could not open input file");
+    char *buf = file_read(input_file, &size);
+    if(!buf) {
+        ERRORF("Could not read input file \"%s\"", input_file);
         return EXIT_FAILURE;
     }
     if(size == 0) {
@@ -63,25 +70,6 @@ int main(int argc, char **argv) {
         return EXIT_SUCCESS;
     }
     
-    FILE *fp_in = fopen(input_file, "rb");
-    if(!fp_in) {
-        ERROR("Could not open input file");
-        return EXIT_FAILURE;
-    }
-    
-    FILE *fp_out = fopen(output_file, "wb");
-    if(!fp_out) {
-        ERROR("Could not open output file");
-        return EXIT_FAILURE;
-    }
-    
-    char *buf = malloc(size);
-    
-    size_t read = fread(buf, 1, size, fp_in);
-    fclose(fp_in);
-    if(read != size) {
-        ERROR("guh?");
-    }
     size_t i = 0;
     size_t write_begin = 0, write_end = 0;
     size_t command_begin = 0, command_end = 0;

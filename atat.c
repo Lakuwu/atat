@@ -10,6 +10,7 @@
 #include "../goolib/macro.h"
 
 void usage(void) {
+    puts("atat build " __DATE__ " " __TIME__);
     puts("Usage: atat input_file output_file");
 }
 

@@ -5,9 +5,9 @@
 #include <stdbool.h>
 
 #define FILE_IMPLEMENTATION
-#include "../goolib/file.h"
+#include "../uwulib/file.h"
 
-#include "../goolib/macro.h"
+#include "../uwulib/macro.h"
 
 void usage(void) {
     puts("atat build " __DATE__ " " __TIME__);
